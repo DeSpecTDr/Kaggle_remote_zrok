@@ -43,7 +43,7 @@ Open the [link](https://www.kaggle.com/code/kayak0/kaggle-zrok), copy the notebo
 In Session options, change internet to on and start the session to run the example notebook cells.
 
 - Default password is set to **0**
-- No need to set up SSH keys (if you wnat, see the notice)
+- No need to set up SSH keys (if you want, see the notice)
 
 ### Step 3 : Setup local machine
 
