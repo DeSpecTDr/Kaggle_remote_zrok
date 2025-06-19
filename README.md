@@ -1,13 +1,14 @@
 # Kaggle GPU/TPU + VS Code + Unlimited SSH Tunneling — Now Made Easy!
+
+Connect to Kaggle notebooks with VSCode via SSH using zrok.
+
 This repository offers powerful features:
 
 - Use **Kaggle’s free GPUs/TPUs** (T4×2, P100, TPU v3-8) for up to **30 hours per week in a Visual Studio Code environment**—develop just like you would locally!
 
 - With **zrok’s 5 GB/day free tunneling**, you can bypass **ngrok’s 1 GB/month limit** without any hassle.
 
-- Powered by **OpenZiti’s dual-plane architecture**, this setup is not only secure and scalable—but can be launched in just **3 simple steps**.
-
-
+- Powered by **OpenZiti’s dual-plane architecture**, complex setup steps are eliminated. You can enable remote access in just **3 simple steps**.
 
 
 
@@ -30,7 +31,7 @@ This repository offers powerful features:
 ## Setup
 
 ### Step 1 : Zrok 
-Create an account at [zrok](https://zrok.io) and copy your auth token. Please checkout [docs](https://docs.zrok.io/docs/getting-started/#enabling-your-zrok-environment)
+Create an account at [zrok](https://zrok.io) and copy your auth token. Please checkout [api-v1.zrok.io](https://api-v1.zrok.io/) or [docs](https://docs.zrok.io/docs/getting-started/#enabling-your-zrok-environment)
 
 > [!NOTE]
 >
@@ -118,25 +119,12 @@ You can provide this URL as the authorized_keys_url argument when running zrok_s
 !python3 zrok_server.py --token <zrok token> --authorized_keys_url <key url>
 ```
 
-
-### 3. you might want to transfer files around between local and remote, in our case we can use `rsync` for this:
-
-```bash
-# from local to remote
-rsync -e "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/.ssh/kaggle_rsa -p 9191" <path_to_the_local_file> root@127.0.0.1:/kaggle/working
-```
-
-```bash
-# from remote to local
-rsync -e "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/.ssh/kaggle_rsa -p 9191" root@127.0.0.1:<path_to_the_remote_file> <destination_path_in_local>
-```
-
-### 4. To minimize exceptions, 
+### 3. Exceptions
 the environment is disabled and re-enabled each time the code runs. This approach helps maintain stability. The code can be modified to run faster, but doing so may lead to numerous errors. 
 
 Also, there may be exceptional situations in these operations. In such cases, you should access https://api-v1.zrok.io/ and manually delete the conflicting environments.
 
-### 5. Technically
+### 4. Technically
 
 The solution directly interacts with the Zrok official web console (API V1) over HTTP and fully exploits OpenZiti’s dual-plane architecture for secure, high-performance connectivity:
 
