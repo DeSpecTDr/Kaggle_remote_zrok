@@ -59,7 +59,37 @@ python zrok_client.py --token <zrok token>
 ```
 
 ## Notice
-### 1. Setup SSH public key authentication
+### 1. Automated Extension Installation
+
+Since you need to install VS Code extensions every time you connect to a new Kaggle session, you can automate this process using `remote.SSH.defaultExtensions` setting.
+
+![VS Code Extension Auto-Install](https://github.com/int11/Kaggle_remote_zrok/raw/main/images/image.png)
+
+Add the following to your VS Code **settings.json** file to automatically install extensions when connecting via Remote SSH:
+
+```json
+{
+  "remote.SSH.defaultExtensions": [
+    "ms-python.python",
+    "ms-toolsai.jupyter",
+    "ms-python.pylint",
+    "ms-python.autopep8",
+    "ms-vscode.vscode-json"
+  ]
+}
+```
+
+**How to open settings.json:**
+- Press `Ctrl + Shift + P` → Search "Preferences: Open User Settings (JSON)"
+- Or go to File → Preferences → Settings → Click the file icon in the top right
+
+**Settings.json location:**
+- **Windows**: `%APPDATA%\Code\User\settings.json`
+- **Linux**: `~/.config/Code/User\settings.json`
+
+This eliminates the need to manually install extensions for each new Kaggle session.
+
+### 2. Setup SSH public key authentication
 
 Kaggle notebooks are ephemeral Linux servers, so they don't use public key authentication by default.
 However, you can still choose to use public key authentication if you prefer.
@@ -83,7 +113,7 @@ You can provide this URL as the authorized_keys_url argument when running zrok_s
 ```
 
 
-### 2. you might want to transfer files around between local and remote, in our case we can use `rsync` for this:
+### 3. you might want to transfer files around between local and remote, in our case we can use `rsync` for this:
 
 ```bash
 # from local to remote
@@ -95,12 +125,12 @@ rsync -e "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/.
 rsync -e "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/.ssh/kaggle_rsa -p 9191" root@127.0.0.1:<path_to_the_remote_file> <destination_path_in_local>
 ```
 
-### 3. To minimize exceptions, 
+### 4. To minimize exceptions, 
 the environment is disabled and re-enabled each time the code runs. This approach helps maintain stability. The code can be modified to run faster, but doing so may lead to numerous errors. 
 
 Also, there may be exceptional situations in these operations. In such cases, you should access https://api-v1.zrok.io/ and manually delete the conflicting environments.
 
-### 4. Technically
+### 5. Technically
 
 The solution directly interacts with the Zrok official web console (API V1) over HTTP and fully exploits OpenZiti’s dual-plane architecture for secure, high-performance connectivity:
 
