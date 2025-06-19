@@ -49,7 +49,14 @@ In Session options, change internet to on and start the session to run the examp
 
 Install [**zrok**](https://docs.zrok.io/docs/guides/install/) and [**vscode**](https://code.visualstudio.com/download) on your local machine. Also, make sure to install the [**Remote-SSH**](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension for VS Code.
 
-Finally, run the `zrok_client.py` file in your local machine. <span style="color: red">**Run it in the CLI instead, as running it in IDEs like VS Code or Cursor may cause the IDE to launch and close immediately.**</span>
+Finally, run the `zrok_client.py` file in your local machine.
+
+
+> **You MUST run the `zrok_client.py` file from your local machine's CLI (Command Line Interface).** 
+>
+> ⚠️ **Do NOT run this script from within VSCode or Cursor.**
+>
+> The subprocess will terminate immediately and the script will not function as intended.
 
 ```bash
 python zrok_client.py
