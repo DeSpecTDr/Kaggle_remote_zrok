@@ -52,18 +52,35 @@ Install [**zrok**](https://docs.zrok.io/docs/guides/install/) and [**vscode**](h
 
 Finally, run the `zrok_client.py` file in your local machine.
 
-
 > **You MUST run the `zrok_client.py` file from your local machine's CLI (Command Line Interface).** 
 >
-> ⚠️ **Do NOT run this script from within VSCode or Cursor.**
+> ⚠️ **Do NOT run this script from within VSCode, Cursor, or their integrated terminals.**
 >
 > The subprocess will terminate immediately and the script will not function as intended.
 
+**Examples:**
 ```bash
+# Basic usage with token prompt
 python zrok_client.py
-# or 
-python zrok_client.py --token <zrok token>
+
+# With custom token and host name
+python zrok_client.py --token YOUR_TOKEN --name my-kaggle
+
+# Skip VS Code launch
+python zrok_client.py --no-vscode
 ```
+
+#### Command Line Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--token` | Your zrok API token | Required (prompts if not provided) |
+| `--name` | zrok environment name & SSH config Host name | `kaggle_client` |
+| `--server_name` | Server environment name | `kaggle_server` |
+| `--no-vscode` | Skip launching VS Code | Launch VS Code (default) |
+| `--workspace` | Remote directory to open | `/kaggle/working` |
+
+
 
 ## Notice
 ### 1. Automated Extension Installation
