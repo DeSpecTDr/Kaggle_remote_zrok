@@ -60,11 +60,7 @@ Finally, run the `zrok_client.py` file in your local machine.
 
 **Examples:**
 ```bash
-# Basic usage with token prompt
-python zrok_client.py
-
-# With custom token and host name
-python zrok_client.py --token YOUR_TOKEN --name my-kaggle
+python zrok_client.py --token YOUR_TOKEN
 
 # Skip VS Code launch
 python zrok_client.py --no-vscode
