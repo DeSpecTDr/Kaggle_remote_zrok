@@ -17,17 +17,17 @@ def main(args):
     # 1. Get zrok share token
     env = zrok.find_env(args.server_name)
     if env is None:
-        raise Exception("kaggle_server environment not found. Are you running the notebook?")
+        raise Exception(f"{args.server_name} environment not found. Are you running the notebook?")
 
     share_token = None
     for share in env.get("shares", []):
         if (share.get("backendMode") == "tcpTunnel" and
-            share.get("backendProxyEndpoint") == "localhost:22"):
+            share.get("backendProxyEndpoint") == f"localhost:{args.port}"):
             share_token = share.get("shareToken")
             break
 
     if not share_token:
-        raise Exception("SSH tunnel not found in kaggle_server environment. Are you running the notebook?")
+        raise Exception(f"SSH tunnel not found in {args.server_name} environment. Are you running the notebook?")
 
     # 2. Start zrok process
     print(f"zrok access private {share_token}")
@@ -80,6 +80,7 @@ if __name__ == "__main__":
     parser.add_argument('--token', type=str, help='zrok API token')
     parser.add_argument('--name', type=str, default='kaggle_client', help='zrok environment name and SSH config Host name (default: kaggle_client)')
     parser.add_argument('--server_name', type=str, default='kaggle_server', help='Server environment name (default: kaggle_server)')
+    parser.add_argument('--port', type=int, default=22, help='SSH port (default: 22)')
     parser.add_argument('--no-vscode', action='store_true', help='Do not launch VS Code after setup')
     parser.add_argument('--workspace', type=str, default='/kaggle/working', help='Default workspace directory to open in VS Code remote session')
     args = parser.parse_args()
