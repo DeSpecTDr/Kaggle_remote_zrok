@@ -27,8 +27,11 @@ AUTH_KEYS_URL=$1
 
 setup_cuda_environment() {
     echo "Setting up CUDA environment variables..."
-    export PATH=/usr/local/cuda/bin:/opt/bin:$PATH
-    export LD_LIBRARY_PATH=/usr/local/nvidia/lib64:/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+
+    echo "export CUDA_HOME=/usr/local/cuda" >> ~/.bashrc
+    echo "export PATH=/usr/local/cuda/bin:/opt/bin:\$PATH" >> ~/.bashrc
+    echo "export LD_LIBRARY_PATH=/usr/local/nvidia/lib64:/usr/local/cuda/lib64:/usr/local/cuda/lib64/stubs:\$LD_LIBRARY_PATH" >> ~/.bashrc
+    
     echo "CUDA environment variables set successfully"
 }
 
