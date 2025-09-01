@@ -25,6 +25,13 @@ fi
 # Make authorized keys URL optional
 AUTH_KEYS_URL=$1
 
+setup_cuda_environment() {
+    echo "Setting up CUDA environment variables..."
+    export PATH=/usr/local/cuda/bin:/opt/bin:$PATH
+    export LD_LIBRARY_PATH=/usr/local/nvidia/lib64:/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+    echo "CUDA environment variables set successfully"
+}
+
 setup_ssh_directory() {
     mkdir -p /kaggle/working/.ssh
     if [ ! -z "$AUTH_KEYS_URL" ]; then
@@ -41,16 +48,6 @@ setup_ssh_directory() {
     fi
 }
 
-create_symlink() {
-    if [ -d /kaggle/working/Kaggle_VSCode_Remote_SSH/.vscode ]; then
-        [ -L /kaggle/.vscode ] && rm /kaggle/.vscode
-        ln -s /kaggle/working/Kaggle_VSCode_Remote_SSH/.vscode /kaggle/.vscode
-        echo "Symlink to .vscode folder created."
-        ls -l /kaggle/.vscode
-    else
-        echo ".vscode directory not found in repository."
-    fi
-}
 
 configure_sshd() {
     mkdir -p /var/run/sshd
@@ -98,14 +95,13 @@ cleanup() {
 
 (
     install_packages
+    setup_cuda_environment
     setup_ssh_directory &
-    create_symlink &
     configure_sshd &
     wait
     start_ssh_service &
     wait
     cleanup
-    chmod +x install_extensions.sh
 )
 
 echo "Setup script completed successfully"
