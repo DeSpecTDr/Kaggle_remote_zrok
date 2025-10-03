@@ -58,13 +58,13 @@ configure_sshd() {
         echo "Port 22"
         echo "Protocol 2"
         echo "PermitRootLogin yes"
-        echo "PasswordAuthentication yes"
+        echo "PasswordAuthentication no"
         echo "PubkeyAuthentication yes"
         if [ ! -z "$AUTH_KEYS_URL" ]; then
             echo "AuthorizedKeysFile /kaggle/working/.ssh/authorized_keys"
         fi
         echo "TCPKeepAlive yes"
-        echo "X11Forwarding yes"
+        echo "X11Forwarding no"
         echo "X11DisplayOffset 10"
         echo "IgnoreRhosts yes"
         echo "HostbasedAuthentication no"

@@ -25,13 +25,13 @@ def main(args):
     else:
         subprocess.run(["bash", "setup_ssh.sh"], check=True)
 
-    if args.password is not None:
-        print(f"Setting password for root user: {args.password}")
-        subprocess.run(f"echo 'root:{args.password}' | sudo chpasswd", shell=True, check=True)
-    else:
-        password = generate_random_password()
-        print(f"Setting password for root user: {password}")
-        subprocess.run(f"echo 'root:{password}' | sudo chpasswd", shell=True, check=True)
+    # if args.password is not None:
+    #     print(f"Setting password for root user: {args.password}")
+    #     subprocess.run(f"echo 'root:{args.password}' | sudo chpasswd", shell=True, check=True)
+    # else:
+    #     password = generate_random_password()
+    #     print(f"Setting password for root user: {password}")
+    #     subprocess.run(f"echo 'root:{password}' | sudo chpasswd", shell=True, check=True)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Kaggle SSH connection setup')
